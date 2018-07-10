@@ -1,4 +1,5 @@
 var snake = document.querySelector('#snake');
+var grillage = document.querySelector('#grillage');
         
     var directionHB = 0;
     var directionGD = 0;
@@ -11,6 +12,7 @@ var snake = document.querySelector('#snake');
     document.querySelector('#lancer').addEventListener('click', function() {
 
         function moveGlob(){
+
 
             console.log(vers,directionHB,directionGD);
 
@@ -35,23 +37,33 @@ var snake = document.querySelector('#snake');
                 clearInterval(boucle);
             }
 
+            
             creerqueue();
+
+            return x = directionHB;
         }
 
-        var boucle = setInterval(moveGlob, 1000);
+        var boucle = setInterval(moveGlob, 100);
 
         function creerqueue(){
             var newDiv = document.createElement('div');
             newDiv.setAttribute('class','queue');
-            newDiv.setAttribute('top', directionHB);
-            var currentDiv = document.getElementById('frillage');
-            document.body.insertBefore(newDiv,currentDiv);
+            newDiv.style.left = directionGD ;
+            newDiv.style.top = directionHB;
+            grillage.appendChild(newDiv);
+
+            var currentDiv = document.getElementById('.queue');
+            document.body.insertBefore(grillage,currentDiv);
         }
+
+        document.querySelector('#stopper').addEventListener('click', function() {
+            clearInterval(boucle);
+        });
+       
     });
     
 
-
-   
+    
 
     document.onkeydown = function(e){
         switch(e.keyCode){

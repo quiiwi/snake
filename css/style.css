@@ -66,6 +66,7 @@ table {
 .queue{
     width: 5px;
     height: 5px;
-    background: lightgreen;
+    background: rgb(25, 41, 25);
     position: relative;
+    z-index: 2;
 }
