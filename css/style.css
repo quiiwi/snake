@@ -67,6 +67,6 @@ table {
     width: 5px;
     height: 5px;
     background: rgb(25, 41, 25);
-    position: relative;
+    position: absolute;
     z-index: 2;
 }

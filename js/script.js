@@ -43,14 +43,17 @@ var grillage = document.querySelector('#grillage');
             return x = directionHB;
         }
 
-        var boucle = setInterval(moveGlob, 100);
+        var boucle = setInterval(moveGlob, 10);
 
         function creerqueue(){
             var newDiv = document.createElement('div');
             newDiv.setAttribute('class','queue');
-            newDiv.style.left = directionGD ;
-            newDiv.style.top = directionHB;
+            newDiv.style.left = directionGD + 'px' ;
+            newDiv.style.top = directionHB + 'px' ;
+            newDiv.setAttribute('i',7);
+            // newDiv.setAttribute('i', -1);
             grillage.appendChild(newDiv);
+
 
             var currentDiv = document.getElementById('.queue');
             document.body.insertBefore(grillage,currentDiv);
