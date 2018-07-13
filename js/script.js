@@ -10,7 +10,7 @@
     var deplacementGauche = 'jebougeverslaGauche $';
     var deplacementDroite = 'jebougeverslaDroite $';
     var vers = deplacementDroite;
-    var Q = 20;
+    var Q = 10;
 
     //LA FONCTION PRINCIPALE
 
@@ -36,10 +36,10 @@
             }
             
             if(directionHB>=500 || directionGD>=500){
-                clearInterval(boucle);
+                clearInterval(boucle); //lorsque je sors de la grille de jeu la boucle principale s'arrête
             }
             if(directionHB<0 || directionGD<0){
-                clearInterval(boucle);
+                clearInterval(boucle); //lorsque je sors de la grille de jeu la boucle principale s'arrête
             }
 
             
@@ -53,6 +53,11 @@
         }
 
         var boucle = setInterval(moveGlob, 100);
+
+
+
+
+        //LA FONCTION CREER LA QUEUE DU SERPENT
 
         function creerqueue(){ //ma fonction qui créer une .queue
             var newDiv = document.createElement('div'); // créer une nouvelle div
@@ -69,16 +74,19 @@
         }
 
         document.querySelector('#stopper').addEventListener('click', function() {
-            clearInterval(boucle);
+            clearInterval(boucle); // le bouton pour arrêter le jeu
         });
+
+
+        //LA FONCTION SUPPRIMER LA QUEUE DU SERPENT
 
         function supprimequeue(){
         //     var Q = document.querySelectorAll(".queue").fontSize;
-            Q--;
+            Q--; //Q est initialement == à 10, à chaque tour de boucle Q - 1 et lorsque Q == 1 on supprime la première div qui a été crée
             console.log(Q);
             if(Q==1){
                 Q++;
-                $('.queue:first').remove(); // C'est plus facile en jQuery......
+                $('.queue:first').remove(); // C'est plus facile en jQuery...... 
             }
         }
 
@@ -93,22 +101,22 @@
     document.onkeydown = function(e){
         switch(e.keyCode){
             case 37: //touche gauche
-                if(vers == deplacementHaut||vers ==deplacementBas||vers==deplacementGauche){
+                if(vers == deplacementHaut||vers ==deplacementBas||vers==deplacementGauche){ // la touche gauche ne s'active que lorsque le serpent se déplace vers le haut/bas/gauche
                     vers = deplacementGauche;
                 }else{vers=deplacementDroite};
             break;
             case 38: //touche haut
-                if(vers== deplacementGauche||vers==deplacementDroite||vers==deplacementHaut){
+                if(vers== deplacementGauche||vers==deplacementDroite||vers==deplacementHaut){ // la touche haut ne s'active que lorsque le serpent se déplace vers le haut/droite/gauche
                 vers = deplacementHaut;
                 }else{vers=deplacementBas}
             break;
             case 39: //touche droite
-                if(vers==deplacementBas||vers==deplacementHaut||vers==deplacementDroite){
+                if(vers==deplacementBas||vers==deplacementHaut||vers==deplacementDroite){ // la touche droite ne s'active que lorsque le serpent se déplace vers le haut/droite/bas
                 vers = deplacementDroite;
                 }else{vers=deplacementGauche}
             break;
             case 40: //touche bas
-                if(vers==deplacementDroite||vers==deplacementGauche||vers==deplacementBas){
+                if(vers==deplacementDroite||vers==deplacementGauche||vers==deplacementBas){ // la touche bas ne s'active que lorsque le serpent se déplace vers le gauche/droite/bas
                 vers = deplacementBas;
                 }else{ver= deplacementHaut};
             break;
