@@ -1,5 +1,7 @@
-var snake = document.querySelector('#snake');
-var grillage = document.querySelector('#grillage');
+    //LES VARIABLES
+
+    var snake = document.querySelector('#snake');
+    var grillage = document.querySelector('#grillage');
         
     var directionHB = 0;
     var directionGD = 0;
@@ -8,15 +10,18 @@ var grillage = document.querySelector('#grillage');
     var deplacementGauche = 'jebougeverslaGauche $';
     var deplacementDroite = 'jebougeverslaDroite $';
     var vers = deplacementDroite;
+    var Q = 20;
+
+    //LA FONCTION PRINCIPALE
 
     document.querySelector('#lancer').addEventListener('click', function() {
 
-        function moveGlob(){
+        function moveGlob(){ //ma fonction pour bouger le serpent
 
 
-            console.log(vers,directionHB,directionGD);
+            console.log(vers,directionHB,directionGD); //TEST
 
-            if (vers === deplacementBas){
+            if (vers === deplacementBas){ 
                 directionHB += +5;
                 snake.style.top = directionHB + 'px';
             } else if (vers === deplacementGauche){
@@ -38,21 +43,25 @@ var grillage = document.querySelector('#grillage');
             }
 
             
+            
             creerqueue();
+            supprimequeue();
 
-            return x = directionHB;
+            //creerpomme();
+
+            //return x = directionHB;
         }
 
-        var boucle = setInterval(moveGlob, 10);
+        var boucle = setInterval(moveGlob, 100);
 
-        function creerqueue(){
-            var newDiv = document.createElement('div');
-            newDiv.setAttribute('class','queue');
-            newDiv.style.left = directionGD + 'px' ;
-            newDiv.style.top = directionHB + 'px' ;
-            newDiv.setAttribute('i',7);
+        function creerqueue(){ //ma fonction qui créer une .queue
+            var newDiv = document.createElement('div'); // créer une nouvelle div
+            newDiv.setAttribute('class','queue'); //lui donner une class .queue
+            newDiv.style.left = directionGD + 'px' ; //lui attribue la position par rapport au left
+            newDiv.style.top = directionHB + 'px' ; //lui attribue la position par rapport au top
+            // newDiv.setAttribute('font-size',7 +'px'); //lui donne une valeur de i = 7
             // newDiv.setAttribute('i', -1);
-            grillage.appendChild(newDiv);
+            grillage.appendChild(newDiv); //indique que newdiv(".queue") est un enfant de #grillage
 
 
             var currentDiv = document.getElementById('.queue');
@@ -62,25 +71,46 @@ var grillage = document.querySelector('#grillage');
         document.querySelector('#stopper').addEventListener('click', function() {
             clearInterval(boucle);
         });
+
+        function supprimequeue(){
+        //     var Q = document.querySelectorAll(".queue").fontSize;
+            Q--;
+            console.log(Q);
+            if(Q==1){
+                Q++;
+                $('.queue:first').remove(); // C'est plus facile en jQuery......
+            }
+        }
+
+
+
        
     });
     
 
-    
+    // EVENEMENTS AUX TOUCHES DU CLAVIER
 
     document.onkeydown = function(e){
         switch(e.keyCode){
-            case 37:
-                vers = deplacementGauche;
+            case 37: //touche gauche
+                if(vers == deplacementHaut||vers ==deplacementBas||vers==deplacementGauche){
+                    vers = deplacementGauche;
+                }else{vers=deplacementDroite};
             break;
-            case 38:
+            case 38: //touche haut
+                if(vers== deplacementGauche||vers==deplacementDroite||vers==deplacementHaut){
                 vers = deplacementHaut;
+                }else{vers=deplacementBas}
             break;
-            case 39:
+            case 39: //touche droite
+                if(vers==deplacementBas||vers==deplacementHaut||vers==deplacementDroite){
                 vers = deplacementDroite;
+                }else{vers=deplacementGauche}
             break;
-            case 40:
+            case 40: //touche bas
+                if(vers==deplacementDroite||vers==deplacementGauche||vers==deplacementBas){
                 vers = deplacementBas;
+                }else{ver= deplacementHaut};
             break;
         }
     }
