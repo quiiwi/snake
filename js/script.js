@@ -10,7 +10,8 @@
     var deplacementGauche = 'jebougeverslaGauche $';
     var deplacementDroite = 'jebougeverslaDroite $';
     var vers = deplacementDroite;
-    var Q = 10;
+    var Q = 15;
+    var xFinal, yFinal;
 
     //LA FONCTION PRINCIPALE
 
@@ -42,17 +43,23 @@
                 clearInterval(boucle); //lorsque je sors de la grille de jeu la boucle principale s'arrête
             }
 
+            if(directionHB == yFinal && directionGD == xFinal){
+                creerpomme();
+                Q += 10;
+                $('.pomme:first').remove();
+            }
+
             
             
             creerqueue();
             supprimequeue();
 
-            //creerpomme();
+            
 
             //return x = directionHB;
         }
 
-        var boucle = setInterval(moveGlob, 100);
+        var boucle = setInterval(moveGlob, 50);
 
 
 
@@ -124,6 +131,48 @@
     }
 
 
+    function creerpomme(){
+        var random = Math.random()*1000000000;
+        var randomEntier = random | 0;
+        randomEntierString = randomEntier.toString();
+        console.log(random);
+        console.log(randomEntier);
+        console.log(randomEntierString[3],randomEntierString[4],randomEntierString[5],randomEntierString[6]);
+
+        var x1 = randomEntierString[3];
+        var x2 = randomEntierString[4];
+
+        var y1 = randomEntierString[5];
+        var y2 = randomEntierString[6];
+
+        console.log(x1,x2,y1,y2);
+
+        var x = x1 + x2;
+        console.log(x);
+        var y = y1 + y2;
+        console.log(y);
+
+        xFinal = x*5;
+        yFinal = y*5;
+       
+
+
+        var newDiv2 = document.createElement('div'); // créer une nouvelle div
+        newDiv2.setAttribute('class','pomme'); //lui donner une class .queue
+        newDiv2.style.left = xFinal + 'px' ; //lui attribue la position par rapport au left
+        newDiv2.style.top = yFinal + 'px' ; //lui attribue la position par rapport au top
+        // newDiv.setAttribute('font-size',7 +'px'); //lui donne une valeur de i = 7
+        // newDiv.setAttribute('i', -1);
+        grillage.appendChild(newDiv2); //indique que newdiv(".queue") est un enfant de #grillage
+
+
+        var currentDiv = document.getElementById('.queue');
+        document.body.insertBefore(grillage,currentDiv);
+
+    };
+    
+    creerpomme();
+    console.log(xFinal, yFinal);
 // var i = 0;
 
 
