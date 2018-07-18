@@ -5,16 +5,22 @@
         
     var directionHB = 0;
     var directionGD = 0;
-    var deplacementBas = 'jebougeverslebas $';
-    var deplacementHaut = 'jebougeversleHaut $';
-    var deplacementGauche = 'jebougeverslaGauche $';
-    var deplacementDroite = 'jebougeverslaDroite $';
+    var deplacementBas = '↓';
+    var deplacementHaut = '↑';
+    var deplacementGauche = '←';
+    var deplacementDroite = '→';
     var vers = deplacementDroite;
     var Q = 15;
     var xFinal, yFinal;
     var score = 0;
     var vitesseDuJeu = 100;
-    var positionDesQueues = [];
+    
+    var positionDesQueuesGD = [
+        
+    ];
+    var positionDesQueuesHB = [
+
+    ];
 
     
 
@@ -24,8 +30,10 @@
         //LA FONCTION POUR BOUGER LE SERPENT
         function moveGlob(){ 
             console.log(vitesseDuJeu);
+            console.log(vers,directionHB,directionGD);
 
-            // console.log(vers,directionHB,directionGD);
+            positionDesQueuesGD.push(directionGD);
+            positionDesQueuesHB.push(directionHB);
 
             if (vers === deplacementBas){ 
                 directionHB += +5;
@@ -43,14 +51,16 @@
             
             if(directionHB>=500 || directionGD>=500){
                 clearInterval(vitessDebutant); //lorsque je sors de la grille de jeu la boucle principale s'arrête
-                clearInterval(vitessPro);
-                clearInterval(vitessMaster);
+                // clearInterval(vitessPro);
+                // clearInterval(vitessMaster);
+                alert('PERDU');
 
             }
             if(directionHB<0 || directionGD<0){
                 clearInterval(vitessDebutant); //lorsque je sors de la grille de jeu la boucle principale s'arrête
-                clearInterval(vitessPro);
-                clearInterval(vitessMaster);
+                // clearInterval(vitessPro);
+                // clearInterval(vitessMaster);
+                alert('PERDU');
             }
 
             if(directionHB == yFinal && directionGD == xFinal){
@@ -69,15 +79,17 @@
 
             supprimequeue();
 
+            checkqueue();
 
             $('#score').text(score);
 
+            
 
-            // console.log(score);
+            console.log(score);
         }
         
 
-
+/* 
         if (score == 0){
             
             mavitessdebutant();
@@ -90,12 +102,12 @@
 
             mavitessmaster();
             
-        }
+        } */
         
-
-        function mavitessdebutant(){
+/* 
+        function mavitessdebutant(){ */
             var vitessDebutant = setInterval(moveGlob, 100);
-        }
+       /*  }
         
         function mavitesspro(){
             clearInterval(vitessDebutant);
@@ -107,11 +119,19 @@
             clearInterval(vitessPro);
             var vitessMaster = setInterval(moveGlob,10);
         }
-        
+         */
 
      
 
+        // function checkqueue(){
             
+        //     // 
+        //     if(Q==1){
+        //        
+        //         
+                
+        //     }
+        // }
         
 
         
@@ -134,23 +154,45 @@
 
         document.querySelector('#stopper').addEventListener('click', function() {
             clearInterval(vitessDebutant); // le bouton pour arrêter le jeu
-            clearInterval(vitessPro);
-            clearInterval(vitessMaster);
+            // clearInterval(vitessPro);
+            // clearInterval(vitessMaster);
         });
 
 
         //LA FONCTION SUPPRIMER LA QUEUE DU SERPENT
         function supprimequeue(){
             Q--; //Q est initialement == à 10, à chaque tour de boucle Q - 1 et lorsque Q == 1 on supprime la première div qui a été crée
-            // console.log(Q);
+            console.log(Q);
+            console.log(positionDesQueuesHB,positionDesQueuesGD);
+            console.log(directionHB,directionGD);
+
             if(Q==1){
                 Q++;
+                positionDesQueuesGD.shift();
+                positionDesQueuesHB.shift(); //supprime la première position de queue
+
+                console.log('je dois supprimer, normalement'); 
                 $('.queue:first').remove(); // C'est plus facile en jQuery...... 
+            }
+        }
+
+        function checkqueue(){
+
+            for(var i = 0; i < positionDesQueuesGD.length; i++){
+    
+                console.log('aa');
+    
+                if(positionDesQueuesGD[i] == directionGD && positionDesQueuesHB[i] == directionHB){
+                    clearInterval(vitessDebutant);
+                    alert('PERDU');
+                }
             }
         }
 
     });
     
+  
+
 
     // EVENEMENTS AUX TOUCHES DU CLAVIER
     document.onkeydown = function(e){
@@ -183,21 +225,21 @@
         var random = Math.random()*1000000000;
         var randomEntier = random | 0;
         randomEntierString = randomEntier.toString();
-        // console.log(random);
-        // console.log(randomEntier);
-        // console.log(randomEntierString[3],randomEntierString[4],randomEntierString[5],randomEntierString[6]);
+        console.log(random);
+        console.log(randomEntier);
+        console.log(randomEntierString[3],randomEntierString[4],randomEntierString[5],randomEntierString[6]);
 
         var x1 = randomEntierString[3];
         var x2 = randomEntierString[4];
 
         var y1 = randomEntierString[5];
         var y2 = randomEntierString[6];
-        // console.log(x1,x2,y1,y2);
+        console.log(x1,x2,y1,y2);
 
         var x = x1 + x2;
-        // console.log(x);
+        console.log(x);
         var y = y1 + y2;
-        // console.log(y);
+        console.log(y);
 
         xFinal = x*5;
         yFinal = y*5;
