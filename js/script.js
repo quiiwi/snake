@@ -1,5 +1,7 @@
     //LES VARIABLES
 
+    $(function(){
+
     var snake = document.querySelector('#snake');
     var grillage = document.querySelector('#grillage');
         
@@ -13,7 +15,7 @@
     var Q = 15;
     var xFinal, yFinal;
     var score = 0;
-    var vitesseDuJeu = 100;
+    // var vitesseDuJeu = 100;
     
     var positionDesQueuesGD = [
         
@@ -22,6 +24,8 @@
 
     ];
 
+    var vitesse = 50;
+
     
 
     //LA FONCTION PRINCIPALE
@@ -29,8 +33,8 @@
 
         //LA FONCTION POUR BOUGER LE SERPENT
         function moveGlob(){ 
-            console.log(vitesseDuJeu);
-            console.log(vers,directionHB,directionGD);
+            // console.log(vitesseDuJeu);
+            // console.log(vers,directionHB,directionGD);
 
             positionDesQueuesGD.push(directionGD);
             positionDesQueuesHB.push(directionHB);
@@ -73,7 +77,11 @@
 
                 score += 1000;
 
+        
+
             }
+
+            checkscore();
 
             creerqueue();
 
@@ -85,9 +93,16 @@
 
             
 
-            console.log(score);
+            // console.log(score);
         }
         
+        function checkscore(){
+            if(score==1000){
+                clearInterval(vitessDebutant);
+                vitessePro();
+
+            }
+        }
 
 /* 
         if (score == 0){
@@ -106,7 +121,7 @@
         
 /* 
         function mavitessdebutant(){ */
-            var vitessDebutant = setInterval(moveGlob, 100);
+ 
        /*  }
         
         function mavitesspro(){
@@ -162,16 +177,16 @@
         //LA FONCTION SUPPRIMER LA QUEUE DU SERPENT
         function supprimequeue(){
             Q--; //Q est initialement == à 10, à chaque tour de boucle Q - 1 et lorsque Q == 1 on supprime la première div qui a été crée
-            console.log(Q);
-            console.log(positionDesQueuesHB,positionDesQueuesGD);
-            console.log(directionHB,directionGD);
+            // console.log(Q);
+            // console.log(positionDesQueuesHB,positionDesQueuesGD);
+            // console.log(directionHB,directionGD);
 
             if(Q==1){
                 Q++;
                 positionDesQueuesGD.shift();
                 positionDesQueuesHB.shift(); //supprime la première position de queue
 
-                console.log('je dois supprimer, normalement'); 
+                // console.log('je dois supprimer, normalement'); 
                 $('.queue:first').remove(); // C'est plus facile en jQuery...... 
             }
         }
@@ -180,7 +195,7 @@
 
             for(var i = 0; i < positionDesQueuesGD.length; i++){
     
-                console.log('aa');
+                // console.log('aa');
     
                 if(positionDesQueuesGD[i] == directionGD && positionDesQueuesHB[i] == directionHB){
                     clearInterval(vitessDebutant);
@@ -189,9 +204,12 @@
             }
         }
 
+        var vitessDebutant = setInterval(moveGlob, 50);
+
+       
     });
     
-  
+ 
 
 
     // EVENEMENTS AUX TOUCHES DU CLAVIER
@@ -225,21 +243,21 @@
         var random = Math.random()*1000000000;
         var randomEntier = random | 0;
         randomEntierString = randomEntier.toString();
-        console.log(random);
-        console.log(randomEntier);
-        console.log(randomEntierString[3],randomEntierString[4],randomEntierString[5],randomEntierString[6]);
+        // console.log(random);
+        // console.log(randomEntier);
+        // console.log(randomEntierString[3],randomEntierString[4],randomEntierString[5],randomEntierString[6]);
 
         var x1 = randomEntierString[3];
         var x2 = randomEntierString[4];
 
         var y1 = randomEntierString[5];
         var y2 = randomEntierString[6];
-        console.log(x1,x2,y1,y2);
+        // console.log(x1,x2,y1,y2);
 
         var x = x1 + x2;
-        console.log(x);
+        // console.log(x);
         var y = y1 + y2;
-        console.log(y);
+        // console.log(y);
 
         xFinal = x*5;
         yFinal = y*5;
@@ -260,6 +278,7 @@
     };
     
     creerpomme();
+});
 
 
     //Script by Quiiwi
